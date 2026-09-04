@@ -3,93 +3,189 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KaamKaaj.pk - Modern Job Portal</title>
-  <!-- Classic Professional Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <title>KaamKaaj.pk - Modern Job Portal & Career Hub</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- Background Blur Shapes for 3D Depth -->
+  <!-- Background 3D Glowing Shapes -->
   <div class="bg-shape circle-1"></div>
   <div class="bg-shape circle-2"></div>
 
-  <!-- Header Section -->
+  <!-- Header / Navbar with Navigation Links & Hamburger -->
   <header class="navbar">
     <div class="logo">KaamKaaj<span>.pk</span></div>
-    <div class="nav-stats">
-      <span class="badge-stat"><i class="fa-solid fa-briefcase"></i> Total Jobs: <strong id="totalJobsCount">20</strong></span>
-      <span class="badge-stat"><i class="fa-solid fa-bookmark"></i> Saved: <strong id="savedCount">0</strong></span>
+    
+    <!-- Navigation Links for Pages -->
+    <nav class="nav-links" id="navLinks">
+      <a href="#home" class="nav-item active" onclick="switchPage('home')"><i class="fa-solid fa-house"></i> Home</a>
+      <a href="#about" class="nav-item" onclick="switchPage('about')"><i class="fa-solid fa-circle-info"></i> About Us</a>
+      <a href="#services" class="nav-item" onclick="switchPage('services')"><i class="fa-solid fa-list-check"></i> Services</a>
+      <a href="#contact" class="nav-item" onclick="switchPage('contact')"><i class="fa-solid fa-envelope"></i> Contact Us</a>
+    </nav>
+
+    <!-- Stats & Hamburger Icon -->
+    <div class="nav-right">
+      <div class="nav-stats">
+        <span class="badge-stat"><i class="fa-solid fa-briefcase"></i> <span id="totalJobsCount">20</span> Jobs</span>
+        <span class="badge-stat"><i class="fa-solid fa-bookmark"></i> <span id="savedCount">0</span> Saved</span>
+      </div>
+      <!-- Three Lines Mobile Menu Button -->
+      <button class="hamburger-btn" id="hamburgerBtn" onclick="toggleMobileMenu()">
+        <i class="fa-solid fa-bars"></i>
+      </button>
     </div>
   </header>
 
-  <!-- Main Hero & Search Section -->
+  <!-- Main Container -->
   <main class="container">
-    <section class="hero-section">
-      <h1>Find Your Dream Job in Pakistan</h1>
-      <p>Explore top opportunities with real-time filtering and instant applications.</p>
-      
-      <!-- Multi Filter Bar -->
-      <div class="search-box glass-card">
-        <input type="text" id="keywordInput" placeholder="Job Title or Keyword (e.g. Developer)...">
+
+    <!-- PAGE 1: HOME PAGE (Jobs & Search) -->
+    <section id="page-home" class="page-section active">
+      <div class="hero-section">
+        <h1>Find Your Dream Career in Pakistan</h1>
+        <p>Connecting top Pakistani talent with leading corporate companies, startups, and remote teams.</p>
         
-        <select id="citySelect">
-          <option value="">All Cities</option>
-          <option value="Karachi">Karachi</option>
-          <option value="Lahore">Lahore</option>
-          <option value="Islamabad">Islamabad</option>
-          <option value="Rawalpindi">Rawalpindi</option>
-          <option value="Faisalabad">Faisalabad</option>
-        </select>
+        <!-- Multi Filter Search Bar -->
+        <div class="search-box glass-card">
+          <input type="text" id="keywordInput" placeholder="Job Title or Skill (e.g. Developer, Designer)...">
+          
+          <select id="citySelect">
+            <option value="">All Cities</option>
+            <option value="Karachi">Karachi</option>
+            <option value="Lahore">Lahore</option>
+            <option value="Islamabad">Islamabad</option>
+            <option value="Rawalpindi">Rawalpindi</option>
+            <option value="Faisalabad">Faisalabad</option>
+          </select>
 
-        <select id="salarySelect">
-          <option value="">Any Salary Level</option>
-          <option value="100k">100k+ PKR</option>
-          <option value="150k">150k+ PKR</option>
-        </select>
+          <select id="salarySelect">
+            <option value="">Any Salary Level</option>
+            <option value="100k">100k+ PKR</option>
+            <option value="150k">150k+ PKR</option>
+          </select>
 
-        <button id="searchBtn" class="btn-primary"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
+          <button id="searchBtn" class="btn-primary"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
+        </div>
+
+        <!-- Quick Category Badges -->
+        <div class="category-pills">
+          <button class="pill active" onclick="filterByCategory('All')">All Jobs</button>
+          <button class="pill" onclick="filterByCategory('Software')"><i class="fa-solid fa-code"></i> Software</button>
+          <button class="pill" onclick="filterByCategory('Graphics')"><i class="fa-solid fa-palette"></i> Graphics</button>
+          <button class="pill" onclick="filterByCategory('Marketing')"><i class="fa-solid fa-bullhorn"></i> Marketing</button>
+          <button class="pill" onclick="filterByCategory('HR')"><i class="fa-solid fa-users"></i> HR</button>
+        </div>
       </div>
 
-      <!-- Quick Category Badges -->
-      <div class="category-pills">
-        <button class="pill active" onclick="filterByCategory('All')">All Jobs</button>
-        <button class="pill" onclick="filterByCategory('Software')"><i class="fa-solid fa-code"></i> Software</button>
-        <button class="pill" onclick="filterByCategory('Graphics')"><i class="fa-solid fa-palette"></i> Graphics</button>
-        <button class="pill" onclick="filterByCategory('Marketing')"><i class="fa-solid fa-bullhorn"></i> Marketing</button>
-        <button class="pill" onclick="filterByCategory('HR')"><i class="fa-solid fa-users"></i> HR</button>
+      <!-- Job Display Grid -->
+      <div class="jobs-wrapper">
+        <h2 class="section-title">Verified Job Opportunities</h2>
+        <div id="jobContainer" class="jobs-grid"></div>
+      </div>
+
+      <!-- Quick CV Application Form -->
+      <div class="form-wrapper glass-card">
+        <h2><i class="fa-solid fa-file-arrow-up"></i> Quick Resume Submission</h2>
+        <p>Submit your resume to get directly noticed by top hiring HR teams.</p>
+        <form id="cvForm">
+          <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" id="candidateName" placeholder="e.g. Dua Saleem" required>
+          </div>
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" id="candidateEmail" placeholder="e.g. dua@example.com" required>
+          </div>
+          <div class="form-group">
+            <label>Upload CV (PDF or DOC format only)</label>
+            <input type="file" id="candidateCV" accept=".pdf,.doc,.docx" required>
+          </div>
+          <button type="submit" class="btn-submit">Submit Resume</button>
+          <div id="formFeedback" class="feedback-msg"></div>
+        </form>
       </div>
     </section>
 
-    <!-- Job Cards Display Grid -->
-    <section class="jobs-wrapper">
-      <h2 class="section-title">Latest Available Vacancies</h2>
-      <div id="jobContainer" class="jobs-grid"></div>
+    <!-- PAGE 2: ABOUT US -->
+    <section id="page-about" class="page-section">
+      <div class="page-header glass-card">
+        <h1>About KaamKaaj.pk</h1>
+        <p>Empowering Pakistan's workforce through modern, transparent recruitment technology.</p>
+      </div>
+      <div class="about-grid">
+        <div class="glass-card info-box">
+          <i class="fa-solid fa-rocket icon-large"></i>
+          <h3>Our Mission</h3>
+          <p>To eliminate friction in job hunting across Pakistan by delivering real-time vacancy updates, verified salaries, and direct recruiter access.</p>
+        </div>
+        <div class="glass-card info-box">
+          <i class="fa-solid fa-eye icon-large"></i>
+          <h3>Our Vision</h3>
+          <p>To become the nation's #1 digital employment platform connecting skilled graduates, remote freelancers, and corporate leaders.</p>
+        </div>
+      </div>
     </section>
 
-    <!-- CV Upload & Application Form -->
-    <section class="form-wrapper glass-card">
-      <h2><i class="fa-solid fa-file-arrow-up"></i> Quick Candidate Registration</h2>
-      <p>Upload your resume (PDF/DOC) to get matched with top hiring companies.</p>
-      <form id="cvForm">
-        <div class="form-group">
-          <label>Full Name</label>
-          <input type="text" id="candidateName" placeholder="e.g. Dua Saleem" required>
+    <!-- PAGE 3: SERVICES / FEATURES -->
+    <section id="page-services" class="page-section">
+      <div class="page-header glass-card">
+        <h1>Our Core Services & Features</h1>
+        <p>Everything you need for seamless career advancement in one unified portal.</p>
+      </div>
+      <div class="services-grid">
+        <div class="glass-card service-card">
+          <i class="fa-solid fa-magnifying-glass-chart"></i>
+          <h3>Smart Job Matcher</h3>
+          <p>Filter opportunities instantly by salary bracket, city, remote flexibility, and specializations.</p>
         </div>
-        <div class="form-group">
-          <label>Email Address</label>
-          <input type="email" id="candidateEmail" placeholder="e.g. dua@example.com" required>
+        <div class="glass-card service-card">
+          <i class="fa-solid fa-shield-halved"></i>
+          <h3>Verified Employer Profiles</h3>
+          <p>All job postings undergo standard background verification to protect job seekers from spam listings.</p>
         </div>
-        <div class="form-group">
-          <label>Upload CV (PDF or DOC format only)</label>
-          <input type="file" id="candidateCV" accept=".pdf,.doc,.docx" required>
+        <div class="glass-card service-card">
+          <i class="fa-solid fa-bell"></i>
+          <h3>Instant Modal Previews</h3>
+          <p>Review comprehensive role responsibilities, company ratings, and benefits without losing your search context.</p>
         </div>
-        <button type="submit" class="btn-submit">Submit Application</button>
-        <div id="formFeedback" class="feedback-msg"></div>
-      </form>
+      </div>
     </section>
+
+    <!-- PAGE 4: CONTACT US -->
+    <section id="page-contact" class="page-section">
+      <div class="page-header glass-card">
+        <h1>Get in Touch</h1>
+        <p>Have questions, recruitment inquiries, or feedback? Send us a message.</p>
+      </div>
+      <div class="contact-wrapper glass-card">
+        <form id="contactForm">
+          <div class="form-group">
+            <label>Your Name</label>
+            <input type="text" placeholder="Enter your full name" required>
+          </div>
+          <div class="form-group">
+            <label>Your Email</label>
+            <input type="email" placeholder="Enter your email" required>
+          </div>
+          <div class="form-group">
+            <label>Message Subject</label>
+            <input type="text" placeholder="e.g. Employer Partnership / Support" required>
+          </div>
+          <div class="form-group">
+            <label>Message Content</label>
+            <textarea rows="4" placeholder="Write your inquiry here..." required></textarea>
+          </div>
+          <button type="submit" class="btn-primary btn-full">Send Message</button>
+          <div id="contactFeedback" class="feedback-msg"></div>
+        </form>
+      </div>
+    </section>
+
   </main>
 
   <!-- 3D Glassmorphic Detail Pop-Up Modal -->
@@ -106,8 +202,8 @@
         <p><strong><i class="fa-solid fa-money-bill-wave"></i> Salary:</strong> PKR <span id="modalSalary">0</span> / month</p>
         <p><strong><i class="fa-solid fa-briefcase"></i> Job Type:</strong> <span id="modalType">Full-Time</span></p>
         <p><strong><i class="fa-solid fa-star"></i> Company Rating:</strong> ⭐ <span id="modalRating">4.8</span> / 5.0</p>
-        <hr>
-        <p class="job-desc">This position offers competitive benefits, flexible working hours, and career growth in Pakistan's leading Industry. Candidates must possess relevant domain experience.</p>
+        <hr style="border: 0.5px solid rgba(255,255,255,0.1); margin: 15px 0;">
+        <p class="job-desc">This position offers competitive benefits, professional growth, and direct mentorship in Pakistan's leading industries.</p>
       </div>
       <div class="modal-footer">
         <button class="btn-primary" onclick="confirmApply()">Confirm & Apply Now</button>
@@ -117,7 +213,7 @@
   </div>
 
   <footer class="footer">
-    <p>&copy; 2026 KaamKaaj.pk - All Rights Reserved | Built with Modern Web Tech</p>
+    <p>&copy; 2026 KaamKaaj.pk - All Rights Reserved | Multi-Page Responsive Portal</p>
   </footer>
 
   <script src="script.js"></script>
