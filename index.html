@@ -4,7 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kaamkaaj Portal - Pakistan's Premier Job & Freelance Platform</title>
+  
+  <!-- CSS Link -->
   <link rel="stylesheet" href="style.css">
+  
   <!-- Google Fonts & FontAwesome Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -132,7 +135,7 @@
       transition: 0.3s;
     }
 
-    /* Page Routing Rules (Crucial: Shows 1 Page at a Time) */
+    /* Page Routing Rules */
     .page-view {
       display: none;
       opacity: 0;
@@ -150,7 +153,7 @@
       transform: translateY(0);
     }
 
-    /* Hero Section (3D Pop) */
+    /* Hero Section */
     .hero-card {
       background: linear-gradient(135deg, #00a86b 0%, #005c3b 100%);
       color: white;
@@ -186,7 +189,7 @@
       max-width: 650px;
     }
 
-    /* Advanced Search Box (Pop-up Effect) */
+    /* Search Box */
     .search-box-3d {
       background: white;
       padding: 12px;
@@ -382,7 +385,7 @@
       background: var(--primary);
     }
 
-    /* Popup Modal for Application */
+    /* Modal Popup */
     .modal-overlay {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
@@ -413,7 +416,7 @@
       transform: scale(1);
     }
 
-    /* Services Page Cards */
+    /* Services Grid */
     .services-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -447,7 +450,7 @@
       margin: 0 auto 20px;
     }
 
-    /* Testimonial / Review Section */
+    /* Reviews Grid */
     .reviews-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -591,7 +594,7 @@
 
     <!-- Jobs Grid -->
     <div class="jobs-grid" id="jobsGridContainer">
-      <!-- Dynamic Job Cards JS through render -->
+      <!-- Dynamic Job Cards JS -->
     </div>
   </main>
 
@@ -762,111 +765,37 @@
 
   <!-- ==================== JAVASCRIPT LOGIC ==================== -->
   <script>
-    // 1. Comprehensive Pakistani Job Dataset
     const jobsData = [
-      {
-        id: 1,
-        title: "Senior Frontend Developer (React)",
-        company: "Systems Limited",
-        city: "Lahore",
-        type: "Full-Time",
-        salary: "PKR 180,000 - 250,000/mo",
-        posted: "2 hours ago",
-        logoText: "SL"
-      },
-      {
-        id: 2,
-        title: "Social Media Specialist",
-        company: "Gul Ahmed Textile",
-        city: "Karachi",
-        type: "Full-Time",
-        salary: "PKR 75,000 - 100,000/mo",
-        posted: "5 hours ago",
-        logoText: "GA"
-      },
-      {
-        id: 3,
-        title: "UI/UX Graphic Designer",
-        company: "10Pearls PK",
-        city: "Remote",
-        type: "Freelance",
-        salary: "PKR 120,000 - 160,000/mo",
-        posted: "1 day ago",
-        logoText: "10P"
-      },
-      {
-        id: 4,
-        title: "Flutter Mobile App Developer",
-        company: "Contour Software",
-        city: "Karachi",
-        type: "Full-Time",
-        salary: "PKR 150,000 - 220,000/mo",
-        posted: "1 day ago",
-        logoText: "CS"
-      },
-      {
-        id: 5,
-        title: "SEO & Content Writer",
-        company: "TRG Pakistan",
-        city: "Islamabad",
-        type: "Part-Time",
-        salary: "PKR 50,000 - 70,000/mo",
-        posted: "2 days ago",
-        logoText: "TRG"
-      },
-      {
-        id: 6,
-        title: "Accounts & Tax Executive",
-        company: "Meezan Bank Ltd",
-        city: "Rawalpindi",
-        type: "Full-Time",
-        salary: "PKR 85,000 - 110,000/mo",
-        posted: "3 days ago",
-        logoText: "MB"
-      }
+      { id: 1, title: "Senior Frontend Developer (React)", company: "Systems Limited", city: "Lahore", type: "Full-Time", salary: "PKR 180,000 - 250,000/mo", posted: "2 hours ago", logoText: "SL" },
+      { id: 2, title: "Social Media Specialist", company: "Gul Ahmed Textile", city: "Karachi", type: "Full-Time", salary: "PKR 75,000 - 100,000/mo", posted: "5 hours ago", logoText: "GA" },
+      { id: 3, title: "UI/UX Graphic Designer", company: "10Pearls PK", city: "Remote", type: "Freelance", salary: "PKR 120,000 - 160,000/mo", posted: "1 day ago", logoText: "10P" },
+      { id: 4, title: "Flutter Mobile App Developer", company: "Contour Software", city: "Karachi", type: "Full-Time", salary: "PKR 150,000 - 220,000/mo", posted: "1 day ago", logoText: "CS" },
+      { id: 5, title: "SEO & Content Writer", company: "TRG Pakistan", city: "Islamabad", type: "Part-Time", salary: "PKR 50,000 - 70,000/mo", posted: "2 days ago", logoText: "TRG" },
+      { id: 6, title: "Accounts & Tax Executive", company: "Meezan Bank Ltd", city: "Rawalpindi", type: "Full-Time", salary: "PKR 85,000 - 110,000/mo", posted: "3 days ago", logoText: "MB" }
     ];
 
     let savedJobIds = [];
 
-    // 2. Page Navigation Switcher Logic
     function switchPage(pageName) {
-      // Hide all pages
-      const pages = document.querySelectorAll('.page-view');
-      pages.forEach(p => p.classList.remove('active-page'));
+      document.querySelectorAll('.page-view').forEach(p => p.classList.remove('active-page'));
+      document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
 
-      // Deactivate all nav items
-      const navItems = document.querySelectorAll('.nav-item');
-      navItems.forEach(item => item.classList.remove('active'));
-
-      // Activate target page
       const targetPage = document.getElementById('page-' + pageName);
-      if (targetPage) {
-        targetPage.classList.add('active-page');
-      }
+      if (targetPage) targetPage.classList.add('active-page');
 
-      // Activate target nav link
       const targetNav = document.getElementById('nav-' + pageName);
-      if (targetNav) {
-        targetNav.classList.add('active');
-      }
+      if (targetNav) targetNav.classList.add('active');
 
-      // Close mobile menu if open
       document.getElementById('navMenu').classList.remove('mobile-active');
 
-      // If switching to Saved page, render saved jobs
-      if (pageName === 'saved') {
-        renderSavedJobs();
-      }
-
+      if (pageName === 'saved') renderSavedJobs();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // 3. Mobile Hamburger Toggle
     function toggleMobileMenu() {
       document.getElementById('navMenu').classList.toggle('mobile-active');
     }
 
-    // 4. Render Jobs in Home Page Grid
     function renderJobs(list) {
       const container = document.getElementById('jobsGridContainer');
       document.getElementById('jobCountText').innerText = `Showing ${list.length} Verified Jobs`;
@@ -912,7 +841,6 @@
       }).join('');
     }
 
-    // 5. Filter Jobs Realtime
     function filterJobs() {
       const query = document.getElementById('searchInput').value.toLowerCase();
       const city = document.getElementById('citySelect').value;
@@ -928,7 +856,6 @@
       renderJobs(filtered);
     }
 
-    // 6. Save / Bookmark Job Logic
     function toggleSaveJob(id) {
       if (savedJobIds.includes(id)) {
         savedJobIds = savedJobIds.filter(item => item !== id);
@@ -942,18 +869,15 @@
       }
     }
 
-    // 7. Render Saved Jobs Page
     function renderSavedJobs() {
       const container = document.getElementById('savedJobsContainer');
       const savedList = jobsData.filter(job => savedJobIds.includes(job.id));
 
       if (savedList.length === 0) {
         container.innerHTML = `
-          <div style="grid-column: 1/-1; text-align: center; padding: 60px; background: white; border-radius: 20px; box-shadow: var(--shadow-3d);">
-            <i class="fa-solid fa-bookmark" style="font-size: 45px; color: #cbd5e1; margin-bottom: 15px;"></i>
-            <h2>Aapne abhi tak koi job save nahi ki!</h2>
-            <p style="color: #64748b; margin-top: 8px;">Home page par ja kar jobs ke uper bookmark icon par click karein.</p>
-            <button class="btn-search" onclick="switchPage('home')" style="margin: 20px auto 0; padding: 10px 20px;">Browse Jobs</button>
+          <div style="grid-column: 1/-1; text-align: center; padding: 50px; background: white; border-radius: 20px;">
+            <i class="fa-solid fa-bookmark" style="font-size: 40px; color: #94a3b8; margin-bottom: 10px;"></i>
+            <h3>Aapne abhi tak koi job save nahi ki!</h3>
           </div>
         `;
         return;
@@ -986,7 +910,6 @@
       `).join('');
     }
 
-    // 8. Apply Modal Functions
     function openApplyModal(title) {
       document.getElementById('modalJobTitle').innerText = "Apply for: " + title;
       document.getElementById('applyModal').classList.add('active');
@@ -998,16 +921,17 @@
 
     function handleApplySubmit(e) {
       e.preventDefault();
-      alert("Aap ki application kamyabi se submit ho gayi hai! HR team aap se jald rabta karegi.");
+      alert("Aap ki Application successfully submit ho gayi hai! 🎉");
       closeApplyModal();
     }
 
     function handleContactSubmit(e) {
       e.preventDefault();
-      alert("Shukriya! Aapka paigham hum tak pahunch gaya hai.");
+      alert("Shukriya! Aapka message hamein mil gaya hai. Hum jald aap se rabta karein ge.");
+      e.target.reset();
     }
 
-    // Initialize Page
+    // Initial Render
     renderJobs(jobsData);
   </script>
 </body>
