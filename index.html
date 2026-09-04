@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KaamKaaj.pk - Pakistan's #1 Job Portal</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <h1 class="logo"><i class="fa-solid fa-briefcase"></i> KaamKaaj<span>.pk</span></h1>
+            <ul class="nav-links">
+                <li><a href="#" class="active" onclick="switchTab('home')">Home</a></li>
+                <li><a href="#" onclick="switchTab('jobs')">Explore Jobs</a></li>
+                <li><a href="#" onclick="switchTab('post')">Post a Job</a></li>
+                <li><a href="#" onclick="switchTab('about')">About Us</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page 1: Home Section -->
+    <section id="homePage" class="page-section">
+        <!-- Hero Banner -->
+        <header class="hero-banner">
+            <div class="hero-content">
+                <h2>Find Your Dream Career in Pakistan</h2>
+                <p>Discover thousands of job opportunities tailored for you.</p>
+                
+                <!-- Advanced Multi-Filter Search Bar -->
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                    <input type="text" id="keywordSearch" placeholder="Title or Skill (Data Entry, PA, React...)" onkeyup="filterJobs()">
+                    
+                    <!-- City Dropdown Filter -->
+                    <select id="cityFilter" onchange="filterJobs()">
+                        <option value="all">All Cities</option>
+                        <option value="Karachi">Karachi</option>
+                        <option value="Lahore">Lahore</option>
+                        <option value="Islamabad">Islamabad</option>
+                        <option value="Remote">Remote</option>
+                    </select>
+
+                    <!-- Job Type Filter -->
+                    <select id="typeFilter" onchange="filterJobs()">
+                        <option value="all">All Job Types</option>
+                        <option value="Full Time">Full Time</option>
+                        <option value="Remote">Remote</option>
+                        <option value="Hybrid">Hybrid</option>
+                        <option value="Part Time">Part Time</option>
+                    </select>
+
+                    <!-- Salary Range Filter -->
+                    <select id="salaryFilter" onchange="filterJobs()">
+                        <option value="0">Min Salary (Any)</option>
+                        <option value="50000">PKR 50,000+</option>
+                        <option value="80000">PKR 80,000+</option>
+                        <option value="100000">PKR 100,000+</option>
+                    </select>
+
+                    <button class="btn-primary" onclick="filterJobs()">Search</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Category Pills & Stats Container -->
+        <div class="container main-content-wrapper">
+            <div class="category-pills">
+                <button class="pill active" onclick="selectCategory('all', this)">All Categories</button>
+                <button class="pill" onclick="selectCategory('Administration', this)">Administration</button>
+                <button class="pill" onclick="selectCategory('Management', this)">Management</button>
+                <button class="pill" onclick="selectCategory('Graphic Design', this)">Design</button>
+                <button class="pill" onclick="selectCategory('Web Development', this)">Web Dev</button>
+                <button class="pill" onclick="selectCategory('Digital Marketing', this)">Marketing</button>
+                <button class="pill" onclick="selectCategory('Content Writing', this)">Writing</button>
+                <button class="pill" onclick="selectCategory('Finance', this)">Finance</button>
+            </div>
+
+            <!-- Live Stats Bar -->
+            <div class="stats-card">
+                <div class="stat-item"><i class="fa-solid fa-list-check"></i> <span id="totalCount">Total Jobs: 0</span></div>
+                <div class="stat-item"><i class="fa-solid fa-wallet"></i> <span id="salaryStats">Average Salary: PKR 0</span></div>
+            </div>
+
+            <!-- Dynamic Job Cards Grid -->
+            <div id="jobList" class="jobs-grid">
+                <!-- Injected via script.js -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Page 2: Post Job Section -->
+    <section id="postPage" class="page-section hidden container">
+        <div class="custom-card">
+            <h2><i class="fa-solid fa-plus-circle"></i> Post a New Job Opening</h2>
+            <p style="color: #64748b; margin-top: 5px;">Fill out the details below to publish a job on KaamKaaj.pk</p>
+            <form onsubmit="addNewJob(event)">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Job Title</label>
+                        <input type="text" id="newTitle" required placeholder="e.g. Senior Data Entry Operator">
+                    </div>
+                    <div class="form-group">
+                        <label>Company Name</label>
+                        <input type="text" id="newCompany" required placeholder="e.g. Systems Ltd">
+                    </div>
+                    <div class="form-group">
+                        <label>City / Location</label>
+                        <select id="newLocation">
+                            <option value="Karachi">Karachi</option>
+                            <option value="Lahore">Lahore</option>
+                            <option value="Islamabad">Islamabad</option>
+                            <option value="Remote">Remote</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Category</label>
+                        <select id="newCategory">
+                            <option value="Administration">Administration</option>
+                            <option value="Management">Management</option>
+                            <option value="Web Development">Web Development</option>
+                            <option value="Graphic Design">Graphic Design</option>
+                            <option value="Digital Marketing">Digital Marketing</option>
+                            <option value="Finance">Finance</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Job Type</label>
+                        <select id="newType">
+                            <option value="Full Time">Full Time</option>
+                            <option value="Remote">Remote</option>
+                            <option value="Hybrid">Hybrid</option>
+                            <option value="Part Time">Part Time</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Salary (PKR/Month)</label>
+                        <input type="number" id="newSalary" required placeholder="e.g. 60000">
+                    </div>
+                </div>
+                <button type="submit" class="btn-primary mt-15"><i class="fa-solid fa-paper-plane"></i> Publish Job</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Page 3: About Us Section -->
+    <section id="aboutPage" class="page-section hidden container">
+        <div class="custom-card text-center" style="margin-bottom: 25px;">
+            <span style="background: #e0f2fe; color: #0369a1; padding: 6px 16px; border-radius: 20px; font-weight: bold; font-size: 13px;">ABOUT OUR PORTAL</span>
+            <h2 style="font-size: 30px; margin-top: 15px; color: #0f172a;">Connecting Talent with Opportunity</h2>
+            <p style="max-width: 700px; margin: 15px auto; color: #475569; line-height: 1.6;">
+                <strong>KaamKaaj.pk</strong> is a modern dynamic web application engineered to simplify job searching and recruitment across Pakistan with multi-level search, city filters, and resume upload integration.
+            </p>
+        </div>
+
+        <div class="form-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 25px;">
+            <div class="custom-card text-center">
+                <i class="fa-solid fa-magnifying-glass" style="font-size: 36px; color: #0284c7; margin-bottom: 15px;"></i>
+                <h3 style="font-size: 18px; margin-bottom: 10px;">Smart Multi-Filter Search</h3>
+                <p style="color: #64748b; font-size: 14px;">Search by keywords, city location, job type, and minimum salary threshold in real-time.</p>
+            </div>
+
+            <div class="custom-card text-center">
+                <i class="fa-solid fa-file-pdf" style="font-size: 36px; color: #16a34a; margin-bottom: 15px;"></i>
+                <h3 style="font-size: 18px; margin-bottom: 10px;">Seamless CV Submission</h3>
+                <p style="color: #64748b; font-size: 14px;">Integrated file validation allowing candidates to attach their CVs/Resumes directly during application.</p>
+            </div>
+
+            <div class="custom-card text-center">
+                <i class="fa-solid fa-layer-group" style="font-size: 36px; color: #d97706; margin-bottom: 15px;"></i>
+                <h3 style="font-size: 18px; margin-bottom: 10px;">Ecosystem for Pakistan</h3>
+                <p style="color: #64748b; font-size: 14px;">Covering key hubs: Karachi, Lahore, Islamabad, and nationwide Remote roles.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal for Applying Job with CV Upload -->
+    <div id="applyModal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h3 id="modalTitle">Apply for Job</h3>
+            <p style="color: #64748b; font-size: 13px; margin-bottom: 15px;">Please fill out your details and attach your CV.</p>
+            <form id="applyForm" onsubmit="submitApplication(event)">
+                <div class="form-group">
+                    <label>Your Full Name</label>
+                    <input type="text" id="applicantName" required placeholder="e.g. Ali Khan">
+                </div>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" id="applicantEmail" required placeholder="ali@example.com">
+                </div>
+                <div class="form-group">
+                    <label>Experience (Years)</label>
+                    <input type="number" id="applicantExp" min="0" required placeholder="e.g. 2">
+                </div>
+                <!-- CV Upload Input -->
+                <div class="form-group">
+                    <label><i class="fa-solid fa-paperclip"></i> Upload CV / Resume (PDF or DOC)</label>
+                    <input type="file" id="applicantCV" accept=".pdf,.doc,.docx" required style="padding: 8px; border: 1px dashed #0284c7; background: #f0f9ff; cursor: pointer;">
+                </div>
+                <button type="submit" class="btn-primary full-width"><i class="fa-solid fa-paper-plane"></i> Submit Application</button>
+            </form>
+            <div id="applicationStatus" class="status-msg hidden"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+</body>
+</html>
