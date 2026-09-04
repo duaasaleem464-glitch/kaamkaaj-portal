@@ -1,4 +1,4 @@
-// KaamKaaj.pk - Complete JavaScript Engine
+// KaamKaaj.pk - Complete Multi-Page Engine
 
 // 20 Professional Job Entries
 const jobsData = [
@@ -27,7 +27,28 @@ const jobsData = [
 let savedJobsCount = 0;
 let currentSelectedJob = null;
 
-// Render Job Cards dynamically
+// Multi-Page Switching Navigation Logic
+function switchPage(pageId) {
+  document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+
+  const targetPage = document.getElementById(`page-${pageId}`);
+  if (targetPage) targetPage.classList.add('active');
+
+  // Highlight Nav Item
+  const activeNav = Array.from(document.querySelectorAll('.nav-item')).find(a => a.getAttribute('onclick').includes(pageId));
+  if (activeNav) activeNav.classList.add('active');
+
+  // Close Mobile Menu if open
+  document.getElementById('navLinks').classList.remove('show');
+}
+
+// Toggle Three Lines Hamburger Menu on Mobile
+function toggleMobileMenu() {
+  document.getElementById('navLinks').classList.toggle('show');
+}
+
+// Render Job Cards Dynamically
 function renderJobs(data) {
   const container = document.getElementById("jobContainer");
   if (!container) return;
@@ -35,7 +56,7 @@ function renderJobs(data) {
   container.innerHTML = "";
   
   if (data.length === 0) {
-    container.innerHTML = `<h3 style="grid-column: 1/-1; text-align: center; color: #94a3b8; padding: 40px;">No Matching Vacancies Found!</h3>`;
+    container.innerHTML = `<h3 style="grid-column: 1/-1; text-align: center; color: #94a3b8; padding: 40px;">No Vacancies Found!</h3>`;
     return;
   }
 
@@ -60,7 +81,7 @@ function renderJobs(data) {
   document.getElementById("totalJobsCount").innerText = data.length;
 }
 
-// Multi Filter Search Logic
+// Search Filtering
 function filterJobs() {
   const keyword = document.getElementById("keywordInput").value.toLowerCase();
   const city = document.getElementById("citySelect").value;
@@ -81,7 +102,7 @@ function filterJobs() {
   renderJobs(filtered);
 }
 
-// Category Pills Filtering
+// Category Pills
 function filterByCategory(cat) {
   document.querySelectorAll('.pill').forEach(btn => btn.classList.remove('active'));
   event.target.classList.add('active');
@@ -109,7 +130,7 @@ function toggleBookmark(btn) {
   document.getElementById("savedCount").innerText = savedJobsCount;
 }
 
-// Pop-Up Modal Controls
+// Modal Functions
 function openJobModal(id) {
   currentSelectedJob = jobsData.find(j => j.id === id);
   if (!currentSelectedJob) return;
@@ -130,11 +151,11 @@ function closeJobModal() {
 }
 
 function confirmApply() {
-  alert(`Application sent for ${currentSelectedJob.title} at ${currentSelectedJob.company}!`);
+  alert(`Application successfully sent for ${currentSelectedJob.title} at ${currentSelectedJob.company}!`);
   closeJobModal();
 }
 
-// Form Validation
+// Forms Submission
 document.getElementById("cvForm").addEventListener("submit", function(e) {
   e.preventDefault();
   const fileInput = document.getElementById("candidateCV");
@@ -145,7 +166,7 @@ document.getElementById("cvForm").addEventListener("submit", function(e) {
 
   if (ext === 'pdf' || ext === 'doc' || ext === 'docx') {
     feedback.style.color = "#4ade80";
-    feedback.innerText = "Success! Your application and CV have been registered.";
+    feedback.innerText = "Success! Resume uploaded and candidate profile registered.";
     this.reset();
   } else {
     feedback.style.color = "#ef4444";
@@ -153,7 +174,16 @@ document.getElementById("cvForm").addEventListener("submit", function(e) {
   }
 });
 
-// Initial Setup
+// Contact Form Submission
+document.getElementById("contactForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+  const feedback = document.getElementById("contactFeedback");
+  feedback.style.color = "#4ade80";
+  feedback.innerText = "Thank you! Your message has been sent to KaamKaaj Support.";
+  this.reset();
+});
+
+// Setup Initial Load
 document.addEventListener("DOMContentLoaded", () => {
   renderJobs(jobsData);
   document.getElementById("searchBtn").addEventListener("click", filterJobs);
