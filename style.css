@@ -1,314 +1,118 @@
-/* Custom Reset & Typography */
+/* ==================== ADVANCED 3D GLASS & POP-UP THEME ==================== */
+
+:root {
+  --primary: #00a86b;        /* Pakistani Emerald Green */
+  --primary-dark: #007a4d;
+  --primary-light: #e6f7f0;
+  --secondary: #1e293b;
+  --accent: #ffb703;
+  --bg-gradient: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+  --card-bg: rgba(255, 255, 255, 0.85);
+  --shadow-3d: 0 10px 25px -5px rgba(0, 168, 107, 0.15), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+  --shadow-pop: 0 20px 30px -10px rgba(0, 0, 0, 0.15), 0 10px 15px -5px rgba(0, 168, 107, 0.25);
+  --border-glow: 1px solid rgba(255, 255, 255, 0.6);
+}
+
 * {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); /* Smooth 3D Bounce Effect */
 }
 
 body {
-  background: #0f172a;
-  color: #f8fafc;
+  background: var(--bg-gradient);
+  color: #0f172a;
   min-height: 100vh;
-  overflow-x: hidden;
+}
+
+/* ==================== 3D HERO BANNER ==================== */
+.hero-card, .hero, .banner {
+  background: linear-gradient(135deg, #00a86b 0%, #005c3b 100%) !important;
+  color: white !important;
+  border-radius: 24px !important;
+  padding: 40px !important;
+  box-shadow: var(--shadow-pop) !important;
+  transform: perspective(1000px) rotateX(2deg);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.hero-card:hover {
+  transform: perspective(1000px) rotateX(0deg) translateY(-5px);
+}
+
+/* ==================== 3D GLASS CARDS ==================== */
+.job-card, .card, .service-card {
+  background: var(--card-bg) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border-radius: 20px !important;
+  padding: 25px !important;
+  border: var(--border-glow) !important;
+  box-shadow: var(--shadow-3d) !important;
   position: relative;
+  transform-style: preserve-3d;
 }
 
-/* Background 3D Glowing Shapes */
-.bg-shape {
-  position: fixed;
-  border-radius: 50%;
-  filter: blur(90px);
-  z-index: -1;
-  opacity: 0.5;
-}
-.circle-1 {
-  width: 350px;
-  height: 350px;
-  background: #3b82f6;
-  top: -50px;
-  left: -50px;
-}
-.circle-2 {
-  width: 400px;
-  height: 400px;
-  background: #8b5cf6;
-  bottom: -100px;
-  right: -100px;
+/* Card Hover 3D Pop-Up Effect */
+.job-card:hover, .card:hover, .service-card:hover {
+  transform: translateY(-10px) scale(1.02) rotateX(3deg) !important;
+  box-shadow: var(--shadow-pop) !important;
+  border-color: var(--primary) !important;
 }
 
-/* Header & Multi-Page Navigation Bar */
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px 8%;
-  background: rgba(15, 23, 42, 0.85);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-}
-.logo {
-  font-size: 1.8rem;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-}
-.logo span { color: #38bdf8; }
-
-.nav-links {
-  display: flex;
-  gap: 25px;
-}
-.nav-item {
-  color: #94a3b8;
-  text-decoration: none;
-  font-size: 0.95rem;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-.nav-item:hover, .nav-item.active {
-  color: #38bdf8;
-}
-
-.nav-right {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-.nav-stats { display: flex; gap: 10px; }
-.badge-stat {
-  background: rgba(255, 255, 255, 0.08);
-  padding: 6px 14px;
-  border-radius: 30px;
-  font-size: 0.8rem;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-}
-
-/* Three Lines Hamburger Icon for Mobile */
-.hamburger-btn {
-  display: none;
-  background: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.2);
-  color: white;
-  font-size: 1.2rem;
-  padding: 8px 12px;
-  border-radius: 8px;
+/* ==================== 3D BUTTONS ==================== */
+.btn-search, .btn-apply, button {
+  background: var(--primary) !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 12px !important;
+  font-weight: 700 !important;
   cursor: pointer;
+  box-shadow: 0 6px 15px rgba(0, 168, 107, 0.3) !important;
+  transform: translateY(0);
 }
 
-/* Page Section Controls */
-.container { padding: 40px 8%; min-height: 80vh; }
-.page-section {
-  display: none;
-  animation: fadeIn 0.4s ease-in-out;
-}
-.page-section.active {
-  display: block;
-}
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+.btn-search:hover, .btn-apply:hover, button:hover {
+  background: var(--primary-dark) !important;
+  transform: translateY(-3px) scale(1.03) !important;
+  box-shadow: 0 10px 20px rgba(0, 168, 107, 0.5) !important;
 }
 
-/* Hero & Search */
-.hero-section { text-align: center; margin-bottom: 40px; }
-.hero-section h1 { font-size: 2.3rem; margin-bottom: 10px; font-weight: 700; }
-.hero-section p { color: #94a3b8; font-size: 1rem; }
-
-.glass-card {
-  background: rgba(30, 41, 59, 0.6);
-  backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+.btn-search:active, .btn-apply:active, button:active {
+  transform: translateY(1px) scale(0.98) !important;
 }
 
-.search-box {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
-  gap: 12px;
-  padding: 20px;
-  margin-top: 25px;
+/* ==================== SEARCH BAR 3D SHADOW ==================== */
+.search-box-3d, .search-bar, .search-container {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-radius: 18px !important;
+  padding: 15px !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12) !important;
+  border: 1px solid rgba(0, 168, 107, 0.2);
 }
-.search-box input, .search-box select {
-  padding: 12px 16px;
-  border-radius: 10px;
-  border: 1px solid rgba(255,255,255,0.2);
-  background: rgba(15, 23, 42, 0.8);
-  color: #fff;
-  outline: none;
-}
-.btn-primary {
-  background: linear-gradient(135deg, #38bdf8, #2563eb);
-  color: white;
-  border: none;
-  border-radius: 10px;
-  font-weight: 600;
-  cursor: pointer;
-  padding: 12px;
-  transition: all 0.3s ease;
-}
-.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(56, 189, 248, 0.4); }
 
-.category-pills { display: flex; justify-content: center; gap: 10px; margin-top: 20px; flex-wrap: wrap; }
-.pill {
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.1);
-  color: #cbd5e1;
-  padding: 8px 18px;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: 0.3s;
+/* ==================== POPUP MODAL ANIMATION ==================== */
+.modal-overlay, .modal {
+  backdrop-filter: blur(8px) !important;
 }
-.pill:hover, .pill.active { background: #38bdf8; color: #0f172a; font-weight: 600; }
 
-/* Jobs Grid */
-.jobs-wrapper { margin-top: 50px; }
-.section-title { margin-bottom: 25px; font-size: 1.5rem; font-weight: 600; }
-.jobs-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 25px;
+.modal-3d, .modal-content {
+  background: white !important;
+  border-radius: 24px !important;
+  box-shadow: var(--shadow-pop) !important;
+  border: 1px solid rgba(0, 168, 107, 0.3) !important;
+  animation: popUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
-.job-card {
-  background: rgba(30, 41, 59, 0.7);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
-  padding: 22px;
-  position: relative;
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-.job-card:hover {
-  transform: translateY(-8px) scale(1.02);
-  border-color: #38bdf8;
-  box-shadow: 0 15px 35px rgba(56, 189, 248, 0.2);
-}
-.card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-.card-badge {
-  background: rgba(56, 189, 248, 0.2);
-  color: #38bdf8;
-  padding: 4px 10px;
-  border-radius: 12px;
-  font-size: 0.75rem;
-  font-weight: 600;
-}
-.bookmark-btn {
-  background: none;
-  border: none;
-  color: #94a3b8;
-  cursor: pointer;
-  font-size: 1.1rem;
-}
-.bookmark-btn.saved { color: #ef4444; }
-.job-card h3 { font-size: 1.15rem; margin-bottom: 5px; }
-.job-card .company { color: #94a3b8; font-size: 0.88rem; margin-bottom: 12px; }
-.job-card .salary { color: #4ade80; font-weight: 600; font-size: 0.98rem; margin-bottom: 18px; }
-.card-actions { display: flex; gap: 10px; }
-.btn-view {
-  width: 100%;
-  background: rgba(255,255,255,0.08);
-  color: white;
-  border: 1px solid rgba(255,255,255,0.15);
-  padding: 10px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: 0.3s;
-}
-.btn-view:hover { background: rgba(255,255,255,0.2); }
 
-/* Additional Pages Styling */
-.page-header { padding: 30px; text-align: center; margin-bottom: 30px; }
-.page-header h1 { font-size: 2rem; margin-bottom: 8px; }
-.page-header p { color: #94a3b8; }
-
-.about-grid, .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
-.info-box, .service-card { padding: 30px; text-align: center; }
-.icon-large { font-size: 2.5rem; color: #38bdf8; margin-bottom: 15px; }
-.service-card i { font-size: 2rem; color: #10b981; margin-bottom: 15px; }
-.info-box h3, .service-card h3 { font-size: 1.2rem; margin-bottom: 10px; }
-.info-box p, .service-card p { color: #94a3b8; font-size: 0.9rem; line-height: 1.6; }
-
-/* Forms */
-.form-wrapper, .contact-wrapper { padding: 35px; max-width: 600px; margin: 40px auto 0 auto; }
-.form-group { margin-bottom: 18px; text-align: left; }
-.form-group label { display: block; margin-bottom: 8px; font-size: 0.88rem; color: #cbd5e1; }
-.form-group input, .form-group textarea {
-  width: 100%;
-  padding: 12px;
-  border-radius: 8px;
-  border: 1px solid rgba(255,255,255,0.15);
-  background: rgba(15, 23, 42, 0.7);
-  color: #fff;
-  outline: none;
-}
-.btn-submit {
-  width: 100%;
-  padding: 14px;
-  background: linear-gradient(135deg, #10b981, #059669);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-}
-.btn-full { width: 100%; }
-.feedback-msg { margin-top: 15px; font-weight: 500; font-size: 0.9rem; }
-
-/* Modal */
-.modal-overlay {
-  display: none;
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0, 0, 0, 0.75);
-  backdrop-filter: blur(8px);
-  z-index: 2000;
-  justify-content: center;
-  align-items: center;
-}
-.glass-card-modal {
-  background: rgba(30, 41, 59, 0.95);
-  border: 1px solid rgba(255,255,255,0.2);
-  border-radius: 20px;
-  width: 90%;
-  max-width: 500px;
-  padding: 30px;
-  position: relative;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-  animation: modalSlide 0.3s ease-out;
-}
-@keyframes modalSlide {
-  from { transform: translateY(30px) scale(0.95); opacity: 0; }
-  to { transform: translateY(0) scale(1); opacity: 1; }
-}
-.close-modal { position: absolute; top: 18px; right: 22px; font-size: 24px; color: #94a3b8; cursor: pointer; }
-.modal-header { margin-bottom: 20px; }
-.modal-body p { margin-bottom: 12px; color: #cbd5e1; font-size: 0.95rem; }
-.modal-footer { display: flex; gap: 10px; margin-top: 25px; }
-.btn-secondary { background: rgba(255,255,255,0.1); border: none; color: #fff; padding: 10px 18px; border-radius: 8px; cursor: pointer; }
-
-/* Responsive Media Queries */
-@media (max-width: 768px) {
-  .hamburger-btn { display: block; }
-  .nav-links {
-    display: none;
-    flex-direction: column;
-    position: absolute;
-    top: 100%; left: 0; width: 100%;
-    background: rgba(15, 23, 42, 0.95);
-    padding: 20px;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
+@keyframes popUp {
+  0% {
+    opacity: 0;
+    transform: scale(0.7) translateY(50px);
   }
-  .nav-links.show { display: flex; }
-  .search-box { grid-template-columns: 1fr; }
-  .nav-stats { display: none; }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }
-
-.footer { text-align: center; padding: 30px; color: #64748b; font-size: 0.85rem; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 50px; }
