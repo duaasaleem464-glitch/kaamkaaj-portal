@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kaamkaaj Portal 3D</title>
+  <title>Kaamkaaj Portal - 3D Cyber Edition</title>
   
   <!-- Fonts & Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <!-- External CSS -->
@@ -17,11 +17,12 @@
   <!-- NAVBAR -->
   <nav class="navbar">
     <div class="logo" onclick="switchTab('home')">
-      <i class="fa-solid fa-bolt"></i> KAAMKAAJ 3D
+      <i class="fa-solid fa-cube"></i> KAAMKAAJ <span style="color:var(--neon-cyan);">3D</span>
     </div>
 
     <ul class="nav-links">
       <li><button class="nav-btn active" id="btn-home" onclick="switchTab('home')"><i class="fa-solid fa-house"></i> Home</button></li>
+      <li><button class="nav-btn" id="btn-post" onclick="switchTab('post')"><i class="fa-solid fa-circle-plus"></i> Post Job</button></li>
       <li><button class="nav-btn" id="btn-services" onclick="switchTab('services')"><i class="fa-solid fa-gears"></i> Services</button></li>
       <li><button class="nav-btn" id="btn-about" onclick="switchTab('about')"><i class="fa-solid fa-circle-info"></i> About</button></li>
       <li><button class="nav-btn" id="btn-contact" onclick="switchTab('contact')"><i class="fa-solid fa-envelope"></i> Contact</button></li>
@@ -33,14 +34,14 @@
     </ul>
   </nav>
 
-  <!-- 1. HOME PAGE -->
+  <!-- 1. HOME PAGE (JOBS & SEARCH) -->
   <main class="page-view active-page" id="page-home">
     <section class="hero">
-      <h1>Find Verified Tech & Corporate Jobs</h1>
-      <p style="color: #94a3b8;">Real-time vacancies in Karachi, Lahore, Islamabad & Remote</p>
+      <h1>Find Your Dream Career in Pakistan</h1>
+      <p style="color: #94a3b8; font-size:16px;">Explore verified corporate, tech, management, and administrative positions</p>
 
       <div class="search-container">
-        <input type="text" id="searchInput" placeholder="Search job title, skills..." onkeyup="filterJobs()">
+        <input type="text" id="searchInput" placeholder="Search title (e.g. Manager, Data Entry, Python)..." onkeyup="filterJobs()">
         <select id="citySelect" onchange="filterJobs()">
           <option value="">All Cities</option>
           <option value="Karachi">Karachi</option>
@@ -53,51 +54,105 @@
     </section>
 
     <div style="display:flex; justify-content:space-between; margin-bottom:20px; align-items:center;">
-      <h2 style="font-size:22px; color:#fff;"><i class="fa-solid fa-fire" style="color:var(--neon-green);"></i> Latest Openings</h2>
+      <h2 style="font-size:22px; color:#fff;"><i class="fa-solid fa-fire" style="color:var(--neon-green);"></i> Live Openings</h2>
       <span style="color:var(--neon-cyan); font-weight:700;" id="jobCounter">Showing Jobs</span>
     </div>
 
     <div class="jobs-grid" id="jobsContainer"></div>
   </main>
 
-  <!-- 2. SERVICES PAGE -->
+  <!-- 2. POST A JOB PAGE -->
+  <main class="page-view" id="page-post">
+    <div style="max-width: 650px; margin: 0 auto; background: var(--card-bg); border: var(--glass-border); padding: 40px; border-radius: 24px; backdrop-filter: blur(15px); box-shadow: 0 20px 40px rgba(0,0,0,0.6);">
+      <h2 style="font-size: 26px; color: var(--neon-green); margin-bottom: 8px;"><i class="fa-solid fa-circle-plus"></i> Post a New Job Vacancy</h2>
+      <p style="color: #94a3b8; margin-bottom: 25px; font-size: 14px;">Post your job opening here, and it will instantly reflect on the home vacancies board.</p>
+      
+      <form onsubmit="handlePostJob(event)">
+        <div style="margin-bottom: 15px;">
+          <label style="display:block; margin-bottom:6px; font-size:13px; color:#cbd5e1;">Job Title (e.g. Assistant Manager, Data Entry Operator)</label>
+          <input type="text" id="postTitle" placeholder="Enter Job Title" class="form-control" required>
+        </div>
+        
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
+          <div>
+            <label style="display:block; margin-bottom:6px; font-size:13px; color:#cbd5e1;">Company / Organization</label>
+            <input type="text" id="postCompany" placeholder="Company Name" class="form-control" required>
+          </div>
+          <div>
+            <label style="display:block; margin-bottom:6px; font-size:13px; color:#cbd5e1;">City</label>
+            <select id="postCity" class="form-control" required>
+              <option value="Karachi">Karachi</option>
+              <option value="Lahore">Lahore</option>
+              <option value="Islamabad">Islamabad</option>
+              <option value="Remote">Remote</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
+          <div>
+            <label style="display:block; margin-bottom:6px; font-size:13px; color:#cbd5e1;">Job Type</label>
+            <select id="postType" class="form-control" required>
+              <option value="Full-Time">Full-Time</option>
+              <option value="Part-Time">Part-Time</option>
+              <option value="Contract">Contract</option>
+              <option value="Freelance">Freelance</option>
+            </select>
+          </div>
+          <div>
+            <label style="display:block; margin-bottom:6px; font-size:13px; color:#cbd5e1;">Salary Package</label>
+            <input type="text" id="postSalary" placeholder="e.g. 50k - 80k PKR" class="form-control" required>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+          <label style="display:block; margin-bottom:6px; font-size:13px; color:#cbd5e1;">Logo Short Code (e.g. MGR, DEO)</label>
+          <input type="text" id="postLogo" placeholder="Max 3 letters" maxlength="3" class="form-control" required>
+        </div>
+
+        <button type="submit" class="apply-btn" style="background: var(--neon-green); color: #000; font-size: 16px; padding: 14px;">Publish Job Listing 🚀</button>
+      </form>
+    </div>
+  </main>
+
+  <!-- 3. SERVICES PAGE -->
   <main class="page-view" id="page-services">
     <h2 style="font-size:28px; color:var(--neon-cyan); margin-bottom:25px;"><i class="fa-solid fa-gears"></i> Our Premium Services</h2>
     <div class="jobs-grid">
       <div class="job-card">
         <div>
           <h3 class="job-title"><i class="fa-solid fa-file-invoice"></i> ATS Resume Builder</h3>
-          <p class="company">Build high-scoring ATS resumes optimized for top Pakistani software companies.</p>
+          <p class="company">Build high-scoring ATS resumes optimized for corporate and IT firms.</p>
         </div>
         <button class="apply-btn" onclick="alert('ATS Builder Portal Opening Soon!')">Launch Builder</button>
       </div>
       <div class="job-card">
         <div>
           <h3 class="job-title"><i class="fa-solid fa-laptop-code"></i> Skill Verification Test</h3>
-          <p class="company">Get a verified badge in React, Python, or UI/UX to stand out to employers.</p>
+          <p class="company">Get verified badges in Management, Office Automation, or Coding.</p>
         </div>
         <button class="apply-btn" onclick="alert('Skill tests will go live next week!')">Start Assessment</button>
       </div>
       <div class="job-card">
         <div>
           <h3 class="job-title"><i class="fa-solid fa-user-tie"></i> 1-on-1 Career Counseling</h3>
-          <p class="company">Book direct mentorship sessions with Senior Tech Leads in Pakistan.</p>
+          <p class="company">Book direct mentorship sessions with professional hiring managers.</p>
         </div>
         <button class="apply-btn" onclick="alert('Counseling booking slots opening soon!')">Book Counseling</button>
       </div>
     </div>
   </main>
 
-  <!-- 3. ABOUT PAGE -->
+  <!-- 4. ABOUT PAGE -->
   <main class="page-view" id="page-about">
     <h2 style="font-size:28px; color:var(--neon-green); margin-bottom:20px;"><i class="fa-solid fa-circle-info"></i> About Kaamkaaj Portal</h2>
     <div style="background:var(--card-bg); border:var(--glass-border); padding:35px; border-radius:22px; backdrop-filter:blur(10px); line-height:1.8; color:#cbd5e1;">
-      <p style="margin-bottom:15px; font-size:16px;">Kaamkaaj Portal is Pakistan's dedicated 3D Cyber-themed Job Aggregator platform tailored for Developers, Designers, and Corporate Professionals.</p>
-      <p style="font-size:16px;">Our target is to eliminate fake job listings and provide a fast, transparent, and modern job hunting experience across Karachi, Lahore, Islamabad, and Remote setups.</p>
+      <p style="margin-bottom:15px; font-size:16px;">Kaamkaaj Portal is Pakistan's premier 3D interactive job gateway designed for all sectors including Administration, Management, Teaching, IT, and Remote jobs.</p>
+      <p style="font-size:16px;">Our mission is to provide transparent, verified career listings across Karachi, Lahore, Islamabad, and Remote setups without any hassle.</p>
     </div>
   </main>
 
-  <!-- 4. CONTACT PAGE -->
+  <!-- 5. CONTACT PAGE -->
   <main class="page-view" id="page-contact">
     <h2 style="font-size:28px; color:var(--neon-cyan); margin-bottom:20px;"><i class="fa-solid fa-envelope"></i> Contact Support</h2>
     <div style="background:var(--card-bg); border:var(--glass-border); padding:35px; border-radius:22px; max-width:550px;">
@@ -110,7 +165,7 @@
     </div>
   </main>
 
-  <!-- 5. SAVED JOBS PAGE -->
+  <!-- 6. SAVED JOBS PAGE -->
   <main class="page-view" id="page-saved">
     <h2 style="font-size:26px; color:var(--neon-green); margin-bottom:20px;"><i class="fa-solid fa-bookmark"></i> Bookmarked Jobs</h2>
     <div class="jobs-grid" id="savedJobsContainer"></div>
