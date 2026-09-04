@@ -1,185 +1,160 @@
-// ==========================================
-// 1. EXTENSIVE DATASET WITH CITIES
-// ==========================================
-let jobsData = [
-    { id: 1, title: "Data Entry Operator", category: "Administration", type: "Full Time", salary: 45000, company: "Metro Logistics", location: "Karachi" },
-    { id: 2, title: "Senior Data Entry Specialist", category: "Administration", type: "Remote", salary: 55000, company: "DataCraft Global", location: "Remote" },
-    { id: 3, title: "Assistant Manager Operations", category: "Management", type: "Full Time", salary: 95000, company: "Engro Enterprises", location: "Lahore" },
-    { id: 4, title: "Personal Assistant (PA) to CEO", category: "Administration", type: "Hybrid", salary: 75000, company: "Apex Holdings", location: "Islamabad" },
-    { id: 5, title: "Executive PA & Office Admin", category: "Administration", type: "Full Time", salary: 65000, company: "Synergy Group", location: "Karachi" },
-    { id: 6, title: "Senior UI/UX Designer", category: "Graphic Design", type: "Remote", salary: 110000, company: "Creative Minds PK", location: "Remote" },
-    { id: 7, title: "Graphic Designer & Animator", category: "Graphic Design", type: "Full Time", salary: 70000, company: "Pixel Studios", location: "Karachi" },
-    { id: 8, title: "Brand Identity Designer", category: "Graphic Design", type: "Hybrid", salary: 85000, company: "DesignHub", location: "Lahore" },
-    { id: 9, title: "Frontend React Developer", category: "Web Development", type: "Full Time", salary: 120000, company: "Systems Ltd", location: "Lahore" },
-    { id: 10, title: "WordPress Developer", category: "Web Development", type: "Hybrid", salary: 65000, company: "WebPro Pakistan", location: "Karachi" },
-    { id: 11, title: "SEO Content Writer", category: "Content Writing", type: "Remote", salary: 50000, company: "WordCraft Media", location: "Remote" },
-    { id: 12, title: "Digital Marketing Manager", category: "Digital Marketing", type: "Hybrid", salary: 105000, company: "MarketPro PK", location: "Lahore" },
-    { id: 13, title: "Assistant Accounts Manager", category: "Finance", type: "Full Time", salary: 85000, company: "Lucky Core Industries", location: "Karachi" }
+// KaamKaaj.pk - Complete JavaScript Engine
+
+// 20 Professional Job Entries
+const jobsData = [
+  { id: 1, title: "Frontend React Developer", company: "TechSolutions PK", city: "Karachi", category: "Software", salary: "120,000", type: "Full-Time", badge: "Urgent", rating: "4.9" },
+  { id: 2, title: "UI/UX Designer", company: "Creative Mindz", city: "Lahore", category: "Graphics", salary: "85,000", type: "Remote", badge: "Featured", rating: "4.8" },
+  { id: 3, title: "HR Operations Manager", company: "Engro Corp", city: "Karachi", category: "HR", salary: "150,000", type: "Full-Time", badge: "Hot", rating: "4.7" },
+  { id: 4, title: "Digital Marketing Lead", company: "ByteCraft", city: "Islamabad", category: "Marketing", salary: "95,000", type: "Hybrid", badge: "Urgent", rating: "4.9" },
+  { id: 5, title: "Python Backend Developer", company: "Systems Ltd", city: "Lahore", category: "Software", salary: "140,000", type: "Full-Time", badge: "Featured", rating: "5.0" },
+  { id: 6, title: "Social Media Specialist", company: "MediaPlus", city: "Karachi", category: "Marketing", salary: "60,000", type: "Remote", badge: "New", rating: "4.5" },
+  { id: 7, title: "SQA Automation Engineer", company: "10Pearls", city: "Karachi", category: "Software", salary: "110,000", type: "Full-Time", badge: "Hot", rating: "4.8" },
+  { id: 8, title: "SEO Strategist", company: "Digitex", city: "Rawalpindi", category: "Marketing", salary: "75,000", type: "Full-Time", badge: "Featured", rating: "4.6" },
+  { id: 9, title: "Senior Brand Designer", company: "Ideation Lab", city: "Lahore", category: "Graphics", salary: "105,000", type: "Hybrid", badge: "Urgent", rating: "4.9" },
+  { id: 10, title: "Talent Acquisition Specialist", company: "KFC Pakistan", city: "Karachi", category: "HR", salary: "90,000", type: "Full-Time", badge: "New", rating: "4.4" },
+  { id: 11, title: "Flutter App Developer", company: "AppStudio", city: "Islamabad", category: "Software", salary: "130,000", type: "Remote", badge: "Hot", rating: "4.9" },
+  { id: 12, title: "Motion Graphics Artist", company: "Pixel Studio", city: "Lahore", category: "Graphics", salary: "80,000", type: "Full-Time", badge: "Featured", rating: "4.7" },
+  { id: 13, title: "E-commerce Manager", company: "Daraz PK", city: "Karachi", category: "Marketing", salary: "160,000", type: "Full-Time", badge: "Urgent", rating: "5.0" },
+  { id: 14, title: "HR Payroll Officer", company: "Interloop", city: "Faisalabad", category: "HR", salary: "70,000", type: "Full-Time", badge: "New", rating: "4.3" },
+  { id: 15, title: "Full Stack MERN Developer", company: "Arbisoft", city: "Lahore", category: "Software", salary: "180,000", type: "Hybrid", badge: "Featured", rating: "4.9" },
+  { id: 16, title: "3D Artist & Illustrator", company: "GameTrain", city: "Islamabad", category: "Graphics", salary: "100,000", type: "Remote", badge: "Hot", rating: "4.8" },
+  { id: 17, title: "Google Ads Specialist", company: "GrowthX", city: "Karachi", category: "Marketing", salary: "90,000", type: "Remote", badge: "Urgent", rating: "4.7" },
+  { id: 18, title: "Technical Recruiter", company: "Netsol", city: "Lahore", category: "HR", salary: "85,000", type: "Full-Time", badge: "New", rating: "4.5" },
+  { id: 19, title: "Data Analyst", company: "Jazz PK", city: "Islamabad", category: "Software", salary: "125,000", type: "Full-Time", badge: "Featured", rating: "4.8" },
+  { id: 20, title: "Creative Art Director", company: "Ogilvy", city: "Karachi", category: "Graphics", salary: "200,000", type: "Full-Time", badge: "Hot", rating: "5.0" }
 ];
 
-let selectedCategory = "all";
+let savedJobsCount = 0;
+let currentSelectedJob = null;
 
-// ==========================================
-// 2. DISPLAY FUNCTION
-// ==========================================
-function displayJobs(jobsToDisplay) {
-    let jobListContainer = document.getElementById("jobList");
-    jobListContainer.innerHTML = "";
+// Render Job Cards dynamically
+function renderJobs(data) {
+  const container = document.getElementById("jobContainer");
+  if (!container) return;
+  
+  container.innerHTML = "";
+  
+  if (data.length === 0) {
+    container.innerHTML = `<h3 style="grid-column: 1/-1; text-align: center; color: #94a3b8; padding: 40px;">No Matching Vacancies Found!</h3>`;
+    return;
+  }
 
-    let totalSalary = 0;
+  data.forEach(job => {
+    const card = document.createElement("div");
+    card.className = "job-card";
+    card.innerHTML = `
+      <div class="card-header">
+        <span class="card-badge">${job.badge}</span>
+        <button class="bookmark-btn" onclick="toggleBookmark(this)"><i class="fa-regular fa-bookmark"></i></button>
+      </div>
+      <h3>${job.title}</h3>
+      <p class="company">🏢 ${job.company} • 📍 ${job.city}</p>
+      <p class="salary">PKR ${job.salary} / mo</p>
+      <div class="card-actions">
+        <button class="btn-view" onclick="openJobModal(${job.id})">View Details</button>
+      </div>
+    `;
+    container.appendChild(card);
+  });
 
-    for (let i = 0; i < jobsToDisplay.length; i++) {
-        let job = jobsToDisplay[i];
-        totalSalary += job.salary;
-
-        let card = document.createElement("div");
-        card.className = "job-card";
-        card.innerHTML = `
-            <div>
-                <h3>${job.title}</h3>
-                <p class="company"><i class="fa-solid fa-building"></i> ${job.company}</p>
-                <div>
-                    <span class="badge badge-cat">${job.category}</span>
-                    <span class="badge badge-type">${job.type}</span>
-                    <span class="badge badge-loc"><i class="fa-solid fa-location-dot"></i> ${job.location}</span>
-                </div>
-            </div>
-            <div>
-                <p class="salary">PKR ${job.salary.toLocaleString()} / mo</p>
-                <button class="btn-primary full-width" onclick="openApplyModal('${job.title}')">Apply Now</button>
-            </div>
-        `;
-        jobListContainer.appendChild(card);
-    }
-
-    let count = jobsToDisplay.length;
-    let avgSalary = count > 0 ? totalSalary / count : 0;
-
-    if (count === 0) {
-        jobListContainer.innerHTML = `
-            <div style="grid-column: 1/-1; text-align:center; padding: 50px; background: white; border-radius: 12px; border: 1px dashed #cbd5e1;">
-                <i class="fa-solid fa-magnifying-glass-blur" style="font-size: 40px; color: #94a3b8; margin-bottom: 10px;"></i>
-                <h3 style="color: #475569;">No Jobs Found Matching Your Criteria</h3>
-                <p style="color: #94a3b8; font-size: 14px; margin-top: 5px;">Try relaxing your city or minimum salary filter.</p>
-            </div>`;
-    }
-
-    document.getElementById("totalCount").innerText = "Total Jobs Available: " + count;
-    document.getElementById("salaryStats").innerText = "Average Salary: PKR " + Math.round(avgSalary).toLocaleString();
+  document.getElementById("totalJobsCount").innerText = data.length;
 }
 
-// ==========================================
-// 3. MULTI-FILTER SEARCH (CITY + SALARY + TYPE + KEYWORD)
-// ==========================================
+// Multi Filter Search Logic
 function filterJobs() {
-    let keyword = document.getElementById("keywordSearch").value.toLowerCase().trim();
-    let city = document.getElementById("cityFilter").value;
-    let type = document.getElementById("typeFilter").value;
-    let minSalary = Number(document.getElementById("salaryFilter").value);
+  const keyword = document.getElementById("keywordInput").value.toLowerCase();
+  const city = document.getElementById("citySelect").value;
+  const salaryVal = document.getElementById("salarySelect").value;
 
-    let filtered = [];
+  const filtered = jobsData.filter(job => {
+    const matchesKeyword = job.title.toLowerCase().includes(keyword) || job.category.toLowerCase().includes(keyword);
+    const matchesCity = city === "" || job.city === city;
+    
+    let numericSalary = parseInt(job.salary.replace(/,/g, ''));
+    let matchesSalary = true;
+    if (salaryVal === "100k") matchesSalary = numericSalary >= 100000;
+    if (salaryVal === "150k") matchesSalary = numericSalary >= 150000;
 
-    for (let i = 0; i < jobsData.length; i++) {
-        let job = jobsData[i];
+    return matchesKeyword && matchesCity && matchesSalary;
+  });
 
-        let matchesKeyword = (keyword === "") || 
-                             job.title.toLowerCase().includes(keyword) || 
-                             job.category.toLowerCase().includes(keyword) || 
-                             job.company.toLowerCase().includes(keyword);
-
-        let matchesCity = (city === "all" || job.location === city);
-        let matchesType = (type === "all" || job.type === type);
-        let matchesSalary = (job.salary >= minSalary);
-        let matchesCat = (selectedCategory === "all" || job.category === selectedCategory);
-
-        if (matchesKeyword && matchesCity && matchesType && matchesSalary && matchesCat) {
-            filtered.push(job);
-        }
-    }
-
-    displayJobs(filtered);
+  renderJobs(filtered);
 }
 
-function selectCategory(cat, element) {
-    selectedCategory = cat;
-    let pills = document.querySelectorAll(".pill");
-    pills.forEach(p => p.classList.remove("active"));
-    element.classList.add("active");
-    filterJobs();
+// Category Pills Filtering
+function filterByCategory(cat) {
+  document.querySelectorAll('.pill').forEach(btn => btn.classList.remove('active'));
+  event.target.classList.add('active');
+
+  if (cat === 'All') {
+    renderJobs(jobsData);
+  } else {
+    const filtered = jobsData.filter(j => j.category === cat);
+    renderJobs(filtered);
+  }
 }
 
-// ==========================================
-// 4. NAVIGATION & MODAL WITH CV HANDLER
-// ==========================================
-function switchTab(tabName) {
-    document.getElementById("homePage").classList.add("hidden");
-    document.getElementById("postPage").classList.add("hidden");
-    document.getElementById("aboutPage").classList.add("hidden");
-
-    if(tabName === 'home' || tabName === 'jobs') {
-        document.getElementById("homePage").classList.remove("hidden");
-    } else if(tabName === 'post') {
-        document.getElementById("postPage").classList.remove("hidden");
-    } else if(tabName === 'about') {
-        document.getElementById("aboutPage").classList.remove("hidden");
-    }
+// Bookmark Toggle
+function toggleBookmark(btn) {
+  const icon = btn.querySelector('i');
+  if (icon.classList.contains('fa-regular')) {
+    icon.className = 'fa-solid fa-bookmark';
+    btn.classList.add('saved');
+    savedJobsCount++;
+  } else {
+    icon.className = 'fa-regular fa-bookmark';
+    btn.classList.remove('saved');
+    savedJobsCount--;
+  }
+  document.getElementById("savedCount").innerText = savedJobsCount;
 }
 
-function addNewJob(event) {
-    event.preventDefault();
-    let newJob = {
-        id: jobsData.length + 1,
-        title: document.getElementById("newTitle").value,
-        company: document.getElementById("newCompany").value,
-        location: document.getElementById("newLocation").value,
-        category: document.getElementById("newCategory").value,
-        type: document.getElementById("newType").value,
-        salary: Number(document.getElementById("newSalary").value)
-    };
+// Pop-Up Modal Controls
+function openJobModal(id) {
+  currentSelectedJob = jobsData.find(j => j.id === id);
+  if (!currentSelectedJob) return;
 
-    jobsData.unshift(newJob);
-    alert("New Job Published Successfully!");
-    switchTab('home');
-    filterJobs();
+  document.getElementById("modalTitle").innerText = currentSelectedJob.title;
+  document.getElementById("modalCompany").innerText = currentSelectedJob.company;
+  document.getElementById("modalCity").innerText = currentSelectedJob.city;
+  document.getElementById("modalSalary").innerText = currentSelectedJob.salary;
+  document.getElementById("modalType").innerText = currentSelectedJob.type;
+  document.getElementById("modalRating").innerText = currentSelectedJob.rating;
+  document.getElementById("modalBadge").innerText = currentSelectedJob.badge;
+
+  document.getElementById("jobModal").style.display = "flex";
 }
 
-function openApplyModal(title) {
-    document.getElementById("modalTitle").innerText = "Apply for: " + title;
-    document.getElementById("applyModal").classList.remove("hidden");
-    document.getElementById("applicationStatus").classList.add("hidden");
-    document.getElementById("applyForm").reset();
+function closeJobModal() {
+  document.getElementById("jobModal").style.display = "none";
 }
 
-function closeModal() {
-    document.getElementById("applyModal").classList.add("hidden");
+function confirmApply() {
+  alert(`Application sent for ${currentSelectedJob.title} at ${currentSelectedJob.company}!`);
+  closeJobModal();
 }
 
-function submitApplication(e) {
-    e.preventDefault();
-    let name = document.getElementById("applicantName").value;
-    let exp = Number(document.getElementById("applicantExp").value);
-    let cvInput = document.getElementById("applicantCV");
-    let status = document.getElementById("applicationStatus");
+// Form Validation
+document.getElementById("cvForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+  const fileInput = document.getElementById("candidateCV");
+  const feedback = document.getElementById("formFeedback");
 
-    status.classList.remove("hidden", "status-success", "status-error");
+  const fileName = fileInput.files[0].name;
+  const ext = fileName.split('.').pop().toLowerCase();
 
-    // Check if CV file is selected
-    if (cvInput.files.length === 0) {
-        status.innerText = "Please attach your CV / Resume before submitting.";
-        status.classList.add("status-error");
-        return;
-    }
+  if (ext === 'pdf' || ext === 'doc' || ext === 'docx') {
+    feedback.style.color = "#4ade80";
+    feedback.innerText = "Success! Your application and CV have been registered.";
+    this.reset();
+  } else {
+    feedback.style.color = "#ef4444";
+    feedback.innerText = "Error: Please upload a valid PDF or DOC file.";
+  }
+});
 
-    let fileName = cvInput.files[0].name;
-
-    if (exp >= 1) {
-        status.innerText = `Success! Application & CV (${fileName}) submitted for ${name}.`;
-        status.classList.add("status-success");
-    } else {
-        status.innerText = `Sorry ${name}, at least 1 year experience is required.`;
-        status.classList.add("status-error");
-    }
-}
-
-// Initial Call
-displayJobs(jobsData);
+// Initial Setup
+document.addEventListener("DOMContentLoaded", () => {
+  renderJobs(jobsData);
+  document.getElementById("searchBtn").addEventListener("click", filterJobs);
+});
