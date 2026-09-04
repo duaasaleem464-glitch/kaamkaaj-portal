@@ -1,23 +1,21 @@
-// Job Data
-const jobsList = [
-  { id: 1, title: "Senior Python / Django Dev", company: "Systems Limited", city: "Lahore", type: "Full-Time", salary: "200k - 260k PKR", logo: "SL" },
-  { id: 2, title: "UI/UX Product Designer", company: "10Pearls PK", city: "Remote", type: "Freelance", salary: "140k - 180k PKR", logo: "10P" },
-  { id: 3, title: "Flutter Mobile Lead", company: "Contour Software", city: "Karachi", type: "Full-Time", salary: "180k - 230k PKR", logo: "CS" },
-  { id: 4, title: "React Frontend Engineer", company: "TPS Pakistan", city: "Islamabad", type: "Full-Time", salary: "150k - 200k PKR", logo: "TPS" },
-  { id: 5, title: "Cyber Security Analyst", company: "TRG Pakistan", city: "Karachi", type: "Full-Time", salary: "170k - 220k PKR", logo: "TRG" },
-  { id: 6, title: "SEO & Content Manager", company: "Gul Ahmed", city: "Karachi", type: "Part-Time", salary: "80k - 110k PKR", logo: "GA" }
+// Initial Jobs List (Includes Managers, Assistants, Operators, Teaching & Tech Roles)
+let jobsList = [
+  { id: 1, title: "Assistant Manager Operations", company: "Al-Fatah Corp", city: "Lahore", type: "Full-Time", salary: "110k - 150k PKR", logo: "AM" },
+  { id: 2, title: "Data Entry & Computer Operator", company: "Systems Limited", city: "Karachi", type: "Full-Time", salary: "50k - 75k PKR", logo: "DE" },
+  { id: 3, title: "Personal Assistant (PA) to CEO", company: "Packages Ltd", city: "Lahore", type: "Full-Time", salary: "90k - 130k PKR", logo: "PA" },
+  { id: 4, title: "Senior School Teacher (Math/Sci)", company: "Beaconhouse School", city: "Islamabad", type: "Full-Time", salary: "70k - 100k PKR", logo: "EDU" },
+  { id: 5, title: "Python / Django Developer", company: "NetSol Technologies", city: "Lahore", type: "Full-Time", salary: "180k - 240k PKR", logo: "NS" },
+  { id: 6, title: "UI/UX Product Designer", company: "10Pearls PK", city: "Remote", type: "Freelance", salary: "120k - 160k PKR", logo: "10P" },
+  { id: 7, title: "Admin Assistant & Coordinator", company: "Engro Corporation", city: "Karachi", type: "Full-Time", salary: "65k - 90k PKR", logo: "ENG" }
 ];
 
 let savedIds = [];
 
 // Switch Page Tabs
 function switchTab(pageId) {
-  // Hide all pages
   document.querySelectorAll('.page-view').forEach(el => el.classList.remove('active-page'));
-  // Un-highlight all nav buttons
   document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
 
-  // Show selected page
   const selectedPage = document.getElementById('page-' + pageId);
   const selectedBtn = document.getElementById('btn-' + pageId);
 
@@ -57,6 +55,31 @@ function renderJobs(data) {
   }).join('');
 }
 
+// Handle Posting New Job from Form
+function handlePostJob(e) {
+  e.preventDefault();
+  
+  const newJob = {
+    id: Date.now(),
+    title: document.getElementById('postTitle').value,
+    company: document.getElementById('postCompany').value,
+    city: document.getElementById('postCity').value,
+    type: document.getElementById('postType').value,
+    salary: document.getElementById('postSalary').value,
+    logo: document.getElementById('postLogo').value.toUpperCase()
+  };
+
+  // Add to top of list
+  jobsList.unshift(newJob);
+  
+  alert("Job published successfully! 🎉 It is now live on the Home page.");
+  
+  // Reset form and redirect to Home
+  e.target.reset();
+  switchTab('home');
+  filterJobs();
+}
+
 // Filter Jobs Search
 function filterJobs() {
   const query = document.getElementById('searchInput').value.toLowerCase();
@@ -94,7 +117,7 @@ function renderSaved() {
   container.innerHTML = savedData.map(job => `
     <div class="job-card">
       <h3 class="job-title">${job.title}</h3>
-      <p class="company">${job.company}</p>
+      <p class="company">${job.company} • ${job.city}</p>
       <button class="apply-btn" onclick="openModal('${job.title}')">Quick Apply 🚀</button>
     </div>
   `).join('');
